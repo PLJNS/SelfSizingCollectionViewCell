@@ -1,0 +1,6 @@
+framework module SelfSizingCollectionViewCell {
+  umbrella header "SelfSizingCollectionViewCell-umbrella.h"
+
+  export *
+  module * { export * }
+}

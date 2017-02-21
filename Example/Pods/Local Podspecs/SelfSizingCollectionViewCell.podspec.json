@@ -1,0 +1,22 @@
+{
+  "name": "SelfSizingCollectionViewCell",
+  "version": "0.1.0",
+  "summary": "A short description of SelfSizingCollectionViewCell.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/PLJNS/SelfSizingCollectionViewCell",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "PLJNS": "me@pljns.com"
+  },
+  "source": {
+    "git": "https://github.com/PLJNS/SelfSizingCollectionViewCell.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "SelfSizingCollectionViewCell/Classes/**/*"
+}

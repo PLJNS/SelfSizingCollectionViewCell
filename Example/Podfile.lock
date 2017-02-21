@@ -1,0 +1,16 @@
+PODS:
+  - SelfSizingCollectionViewCell (0.1.0)
+
+DEPENDENCIES:
+  - SelfSizingCollectionViewCell (from `../`)
+
+EXTERNAL SOURCES:
+  SelfSizingCollectionViewCell:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  SelfSizingCollectionViewCell: d9b9877006bfdb9e559c7a9f64387239371012d0
+
+PODFILE CHECKSUM: 443126b99dbae32f578f6c6b3e4be6b1199af06b
+
+COCOAPODS: 1.2.0
