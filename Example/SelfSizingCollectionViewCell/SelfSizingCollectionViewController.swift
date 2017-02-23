@@ -9,57 +9,76 @@
 import UIKit
 import SelfSizingCollectionViewCell
 
-class SelfSizingCollectionViewController : UIViewController, UICollectionViewDataSource {
+class SelfSizingCollectionViewController : UIViewController {
+    
     @IBOutlet fileprivate weak var collectionView: UICollectionView!
     @IBOutlet fileprivate weak var collectionViewLayout: UICollectionViewFlowLayout!
-    
-    fileprivate var configuredVerticalSizeClass : UIUserInterfaceSizeClass? // This is so we do not configure and reload the same change.
     
     fileprivate var images : [UIImage] = [#imageLiteral(resourceName: "one"), #imageLiteral(resourceName: "two"), #imageLiteral(resourceName: "three"), #imageLiteral(resourceName: "four"), #imageLiteral(resourceName: "five"), #imageLiteral(resourceName: "six")]
     fileprivate var strings : [String] = []
     fileprivate var fontSizes : [CGFloat] = []
     fileprivate var colors : [UIColor] = []
     
+    // MARK: - Overrides
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        createDebugData()
-        collectionViewLayout.estimatedItemSize = CGSize(width: 26, height: 26) // Set the estimated item size to the *smallest legal size* of all your cells.
-        configure() // Initial configuration
+        
+        // Create debug data
+        for _ in 0..<12 {
+            strings.append(String(randomStringOfLength:Int(randomIntBetween: 12, and: 2)))
+            fontSizes.append(CGFloat(integerLiteral: Int(randomIntBetween: 42, and: 12)))
+            colors.append(UIColor(randomColor: true))
+        }
+        
+        collectionViewLayout.estimatedItemSize = CGSize(width: 26, height: 26) // Enables self-sizing, iOS 9 requires this to be the smallest legal value for any of your cells.
+        configure(forTraitCollection: traitCollection)
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        configure() // If the subviews have been layed out, we may need to update.
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        for cell in collectionView.visibleCells {
+            if let configurableCell = cell as? SelfSizingCollectionViewCell {
+                configurableCell.collectionViewWillTransition(toSize: size, withLayout: collectionViewLayout)
+            }
+        }
+        
+        collectionView.alpha = 0 // Because of the tiny estimated item size, these animations are unsightly, so better to just hide them.
+        
+        coordinator.animate(alongsideTransition: nil, completion: { (context:UIViewControllerTransitionCoordinatorContext) in
+            UIView.setAnimationsEnabled(false)
+            self.collectionView.reloadData()
+            self.collectionView.reloadItems(at: self.collectionView.indexPathsForVisibleItems)
+            self.collectionViewLayout.invalidateLayout()
+            self.collectionView.setContentOffset(CGPoint(x: 0, y: -self.collectionView.contentInset.top), animated: false) // Shouldn't be necessary, but the scrolling up is very janky after a rotate, especially on iOS 9
+            UIView.setAnimationsEnabled(true)
+            
+            UIView.animate(withDuration: 0.25, animations: { 
+                self.collectionView.alpha = 1
+            })
+        })
     }
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
-        /* We're about to change the cell width, so reset the section insets to guard against UICollectionViewFlowLayoutBreakForInvalidSizes. */
-        collectionViewLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        collectionView.alpha = 0 // Hide unsightly transition
-        coordinator.animate(alongsideTransition: nil) { (context:UIViewControllerTransitionCoordinatorContext) in
-            self.configure() // When we're done transitioning, set the new edge insets.
-            self.collectionView.alpha = 1 // Bring back the collection view when it's all updated
-        }
         super.willTransition(to: newCollection, with: coordinator)
+        configure(forTraitCollection: newCollection)
     }
     
-    func configure() {
-        if traitCollection.verticalSizeClass != configuredVerticalSizeClass { // To defend against layout loops.
-            configuredVerticalSizeClass = traitCollection.verticalSizeClass
-            
-            if traitCollection.verticalSizeClass == .regular {
-                collectionViewLayout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20) // You can change these.
-            } else {
-                collectionViewLayout.sectionInset = UIEdgeInsets(top: 20, left: 120, bottom: 20, right: 120)
-            }
-            
-            collectionViewLayout.invalidateLayout()
-            collectionView.reloadData() // We just updated edge insets, which changes our cell widths in many cases, so reload.
+    // MARK: - Custom
+    
+    func configure(forTraitCollection: UITraitCollection) {
+        if forTraitCollection.verticalSizeClass == .regular {
+            collectionViewLayout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        } else {
+            collectionViewLayout.sectionInset = UIEdgeInsets(top: 20, left: 120, bottom: 20, right: 120)
         }
     }
-    
+}
+
+extension SelfSizingCollectionViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        var cell : SelfSizingCollectionViewCell // Cell is of this type so we can configure without casting.
+        var cell : SelfSizingCollectionViewCell
         
         switch indexPath.section % 2 {
         case 0:
@@ -72,7 +91,7 @@ class SelfSizingCollectionViewController : UIViewController, UICollectionViewDat
                 case 0:
                     cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SwitchCollectionViewCell", for: indexPath) as! SwitchCollectionViewCell
                     cell.backgroundColor = .blue
-                    cell.numberOfCellsPerLine = Int(ceil(Double(indexPath.section + 1) / 2)) // This is so it goes from being 1, to 2, to 3, etc, by section.
+                    cell.numberOfCellsPerLine = Int(ceil(Double(indexPath.section + 1) / 2))
                 case 1:
                     cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ButtonCollectionViewCell", for: indexPath) as! ButtonCollectionViewCell
                     cell.backgroundColor = .red
@@ -92,19 +111,9 @@ class SelfSizingCollectionViewController : UIViewController, UICollectionViewDat
             cell = HeightSizingCollectionViewCell()
         }
         
-        cell.configure(forLayout: collectionViewLayout) // This is important, see concrete subclasses of SelfSizingCollectionViewCell for details.
+        cell.configure(forLayout: collectionViewLayout)
         
         return cell
-    }
-}
-
-extension SelfSizingCollectionViewController {
-    func createDebugData() {
-        for _ in 0..<12 {
-            strings.append(String(randomStringOfLength:Int(randomIntBetween: 12, and: 2)))
-            fontSizes.append(CGFloat(integerLiteral: Int(randomIntBetween: 42, and: 12)))
-            colors.append(UIColor(randomColor: true))
-        }
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -122,5 +131,3 @@ extension SelfSizingCollectionViewController {
         }
     }
 }
-
-

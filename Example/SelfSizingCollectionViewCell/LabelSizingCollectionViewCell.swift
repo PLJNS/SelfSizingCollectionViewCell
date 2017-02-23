@@ -13,10 +13,13 @@ class LabelHeightAndWidthSizingCollectionViewCell : HeightAndWidthSizingCollecti
     @IBOutlet fileprivate weak var label: UILabel!
     
     var labelTextAndFont : (_ : String?, _ : CGFloat?)? {
-        didSet {
+        didSet(oldValue) {
             label.text = labelTextAndFont?.0
             label.font = UIFont.systemFont(ofSize: labelTextAndFont?.1 ?? 0)
-            invalidateCache()
+            
+            if (oldValue?.0 != labelTextAndFont?.0) || (oldValue?.1 != labelTextAndFont?.1) {
+                invalidateCache()
+            }
         }
     }
 }
