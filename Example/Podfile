@@ -1,9 +1,9 @@
 use_frameworks!
 
-target 'SelfSizingCollectionViewCell_Example' do
-  pod 'SelfSizingCollectionViewCell', :path => '../'
+target 'SelfSizingCollectionViewController_Example' do
+  pod 'SelfSizingCollectionViewController', :path => '../'
 
-  target 'SelfSizingCollectionViewCell_Tests' do
+  target 'SelfSizingCollectionViewController_Tests' do
     inherit! :search_paths
 
     

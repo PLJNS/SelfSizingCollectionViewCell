@@ -1,6 +1,0 @@
-framework module Pods_SelfSizingCollectionViewCell_Example {
-  umbrella header "Pods-SelfSizingCollectionViewCell_Example-umbrella.h"
-
-  export *
-  module * { export * }
-}

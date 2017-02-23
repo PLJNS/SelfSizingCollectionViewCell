@@ -1,0 +1,6 @@
+framework module SelfSizingCollectionViewController {
+  umbrella header "SelfSizingCollectionViewController-umbrella.h"
+
+  export *
+  module * { export * }
+}

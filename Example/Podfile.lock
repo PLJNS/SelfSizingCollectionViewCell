@@ -1,16 +1,16 @@
 PODS:
-  - SelfSizingCollectionViewCell (0.1.0)
+  - SelfSizingCollectionViewController (0.1.0)
 
 DEPENDENCIES:
-  - SelfSizingCollectionViewCell (from `../`)
+  - SelfSizingCollectionViewController (from `../`)
 
 EXTERNAL SOURCES:
-  SelfSizingCollectionViewCell:
+  SelfSizingCollectionViewController:
     :path: "../"
 
 SPEC CHECKSUMS:
-  SelfSizingCollectionViewCell: d9b9877006bfdb9e559c7a9f64387239371012d0
+  SelfSizingCollectionViewController: 0f3aab3750d8c02df0f1e7b0e971a03b7b706533
 
-PODFILE CHECKSUM: 443126b99dbae32f578f6c6b3e4be6b1199af06b
+PODFILE CHECKSUM: ecff1d2c75800f32da3a25910c0ec8efb22a254c
 
 COCOAPODS: 1.2.0
