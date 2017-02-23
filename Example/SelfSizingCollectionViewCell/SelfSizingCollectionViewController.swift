@@ -44,20 +44,8 @@ class SelfSizingCollectionViewController : UIViewController {
             }
         }
         
-        collectionView.alpha = 0 // Because of the tiny estimated item size, these animations are unsightly, so better to just hide them.
-        
-        coordinator.animate(alongsideTransition: nil, completion: { (context:UIViewControllerTransitionCoordinatorContext) in
-            UIView.setAnimationsEnabled(false)
-            self.collectionView.reloadData()
-            self.collectionView.reloadItems(at: self.collectionView.indexPathsForVisibleItems)
-            self.collectionViewLayout.invalidateLayout()
-            self.collectionView.setContentOffset(CGPoint(x: 0, y: -self.collectionView.contentInset.top), animated: false) // Shouldn't be necessary, but the scrolling up is very janky after a rotate, especially on iOS 9
-            UIView.setAnimationsEnabled(true)
-            
-            UIView.animate(withDuration: 0.25, animations: { 
-                self.collectionView.alpha = 1
-            })
-        })
+        collectionView.setContentOffset(CGPoint(x: 0, y: -collectionView.contentInset.top), animated: false) // Shouldn't be necessary, but the scrolling up is very janky after a rotate, especially on iOS 9
+        collectionViewLayout.invalidateLayout()
     }
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
