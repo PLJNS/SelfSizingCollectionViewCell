@@ -9,62 +9,18 @@
 import UIKit
 import SelfSizingCollectionViewCell
 
-class SelfSizingCollectionViewController : UIViewController {
-    
-    @IBOutlet fileprivate weak var collectionView: UICollectionView!
-    @IBOutlet fileprivate weak var collectionViewLayout: UICollectionViewFlowLayout!
+class ViewController : SelfSizingCollectionViewController, UICollectionViewDataSource {
     
     fileprivate var images : [UIImage] = [#imageLiteral(resourceName: "one"), #imageLiteral(resourceName: "two"), #imageLiteral(resourceName: "three"), #imageLiteral(resourceName: "four"), #imageLiteral(resourceName: "five"), #imageLiteral(resourceName: "six")]
     fileprivate var strings : [String] = []
     fileprivate var fontSizes : [CGFloat] = []
     fileprivate var colors : [UIColor] = []
     
-    // MARK: - Overrides
-    
     override func viewDidLoad() {
+        generateDebugData()
         super.viewDidLoad()
-        
-        // Create debug data
-        for _ in 0..<12 {
-            strings.append(String(randomStringOfLength:Int(randomIntBetween: 12, and: 2)))
-            fontSizes.append(CGFloat(integerLiteral: Int(randomIntBetween: 42, and: 12)))
-            colors.append(UIColor(randomColor: true))
-        }
-        
-        collectionViewLayout.estimatedItemSize = CGSize(width: 26, height: 26) // Enables self-sizing, iOS 9 requires this to be the smallest legal value for any of your cells.
-        configure(forTraitCollection: traitCollection)
     }
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        
-        for cell in collectionView.visibleCells {
-            if let configurableCell = cell as? SelfSizingCollectionViewCell {
-                configurableCell.collectionViewWillTransition(toSize: size, withLayout: collectionViewLayout)
-            }
-        }
-        
-        collectionView.setContentOffset(CGPoint(x: 0, y: -collectionView.contentInset.top), animated: false) // Shouldn't be necessary, but the scrolling up is very janky after a rotate, especially on iOS 9
-        collectionViewLayout.invalidateLayout()
-    }
-    
-    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.willTransition(to: newCollection, with: coordinator)
-        configure(forTraitCollection: newCollection)
-    }
-    
-    // MARK: - Custom
-    
-    func configure(forTraitCollection: UITraitCollection) {
-        if forTraitCollection.verticalSizeClass == .regular {
-            collectionViewLayout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
-        } else {
-            collectionViewLayout.sectionInset = UIEdgeInsets(top: 20, left: 120, bottom: 20, right: 120)
-        }
-    }
-}
-
-extension SelfSizingCollectionViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell : SelfSizingCollectionViewCell
         
@@ -116,6 +72,14 @@ extension SelfSizingCollectionViewController : UICollectionViewDataSource {
             return strings.count
         default:
             return 0
+        }
+    }
+    
+    func generateDebugData() {
+        for _ in 0..<12 {
+            strings.append(String(randomStringOfLength:Int(randomIntBetween: 12, and: 2)))
+            fontSizes.append(CGFloat(integerLiteral: Int(randomIntBetween: 42, and: 12)))
+            colors.append(UIColor(randomColor: true))
         }
     }
 }

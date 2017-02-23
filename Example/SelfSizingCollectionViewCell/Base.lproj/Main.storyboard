@@ -25,10 +25,10 @@
             </objects>
             <point key="canvasLocation" x="-1082" y="-340"/>
         </scene>
-        <!--Self Sizing Collection View Controller-->
+        <!--View Controller-->
         <scene sceneID="nhs-um-hfd">
             <objects>
-                <viewController id="rFM-cc-qFb" customClass="SelfSizingCollectionViewController" customModule="SelfSizingCollectionViewCell_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="rFM-cc-qFb" customClass="ViewController" customModule="SelfSizingCollectionViewCell_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UfC-YI-PzK"/>
                         <viewControllerLayoutGuide type="bottom" id="Bud-h7-QZu"/>
