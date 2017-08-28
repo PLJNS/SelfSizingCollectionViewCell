@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		0C123E68BF31E76F2FE3113CE627D7C6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
+		279D73B91F5499130029023D /* SelfSizingCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279D73B81F5499130029023D /* SelfSizingCollectionViewLayout.swift */; };
+		279D73BB1F54993C0029023D /* SelfSizingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279D73BA1F54993C0029023D /* SelfSizingCollectionViewCell.swift */; };
+		279D73BD1F54996B0029023D /* HeightAndWidthSizingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279D73BC1F54996A0029023D /* HeightAndWidthSizingCollectionViewCell.swift */; };
+		279D73BF1F5499860029023D /* HeightSizingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279D73BE1F5499860029023D /* HeightSizingCollectionViewCell.swift */; };
+		279D73C11F5499A20029023D /* UICollectionViewFlowLayout+SelfSizingExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279D73C01F5499A20029023D /* UICollectionViewFlowLayout+SelfSizingExtensions.swift */; };
 		3DD90D11421D471CDA89C22D34BC203D /* Pods-SelfSizingCollectionViewController_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FBC48CB45F7815B6134DBC6D2EA9DE7 /* Pods-SelfSizingCollectionViewController_Example-dummy.m */; };
 		61CC5749ABC9722C5CBFC958E69A5C4B /* SelfSizingCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292D66D1411E6481EE1A3511148EE999 /* SelfSizingCollectionViewController.swift */; };
 		9192D53F246E3859067465CB887E1A81 /* SelfSizingCollectionViewController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 35E4A28C4B2B18CE384BC55721EF43D3 /* SelfSizingCollectionViewController-dummy.m */; };
@@ -36,6 +41,11 @@
 		1422FFADA2FF0C1872BC3FAA06692403 /* Pods-SelfSizingCollectionViewController_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-SelfSizingCollectionViewController_Example.modulemap"; sourceTree = "<group>"; };
 		2494EB46EE7FF2D9EE163EC7F55CDE49 /* Pods-SelfSizingCollectionViewController_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SelfSizingCollectionViewController_Tests-dummy.m"; sourceTree = "<group>"; };
 		267A70DCD842224C5562F5C593B13075 /* SelfSizingCollectionViewController-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SelfSizingCollectionViewController-umbrella.h"; sourceTree = "<group>"; };
+		279D73B81F5499130029023D /* SelfSizingCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfSizingCollectionViewLayout.swift; sourceTree = "<group>"; };
+		279D73BA1F54993C0029023D /* SelfSizingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfSizingCollectionViewCell.swift; sourceTree = "<group>"; };
+		279D73BC1F54996A0029023D /* HeightAndWidthSizingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeightAndWidthSizingCollectionViewCell.swift; sourceTree = "<group>"; };
+		279D73BE1F5499860029023D /* HeightSizingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeightSizingCollectionViewCell.swift; sourceTree = "<group>"; };
+		279D73C01F5499A20029023D /* UICollectionViewFlowLayout+SelfSizingExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionViewFlowLayout+SelfSizingExtensions.swift"; sourceTree = "<group>"; };
 		292D66D1411E6481EE1A3511148EE999 /* SelfSizingCollectionViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SelfSizingCollectionViewController.swift; sourceTree = "<group>"; };
 		2A6CF4753767ADF5BA19DAE2D24D7BFD /* SelfSizingCollectionViewController.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SelfSizingCollectionViewController.xcconfig; sourceTree = "<group>"; };
 		2C316F1FB886ABE3D8EF225E142DCD48 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -177,7 +187,12 @@
 		8361F32005449A09A48D4F6668B557C5 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				279D73BC1F54996A0029023D /* HeightAndWidthSizingCollectionViewCell.swift */,
+				279D73BE1F5499860029023D /* HeightSizingCollectionViewCell.swift */,
+				279D73BA1F54993C0029023D /* SelfSizingCollectionViewCell.swift */,
 				292D66D1411E6481EE1A3511148EE999 /* SelfSizingCollectionViewController.swift */,
+				279D73B81F5499130029023D /* SelfSizingCollectionViewLayout.swift */,
+				279D73C01F5499A20029023D /* UICollectionViewFlowLayout+SelfSizingExtensions.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -346,7 +361,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				61CC5749ABC9722C5CBFC958E69A5C4B /* SelfSizingCollectionViewController.swift in Sources */,
+				279D73B91F5499130029023D /* SelfSizingCollectionViewLayout.swift in Sources */,
+				279D73C11F5499A20029023D /* UICollectionViewFlowLayout+SelfSizingExtensions.swift in Sources */,
+				279D73BB1F54993C0029023D /* SelfSizingCollectionViewCell.swift in Sources */,
+				279D73BD1F54996B0029023D /* HeightAndWidthSizingCollectionViewCell.swift in Sources */,
 				9192D53F246E3859067465CB887E1A81 /* SelfSizingCollectionViewController-dummy.m in Sources */,
+				279D73BF1F5499860029023D /* HeightSizingCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
